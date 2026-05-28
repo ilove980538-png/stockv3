@@ -1243,7 +1243,7 @@ ${newsText||'無法取得新聞'}
       headers:{
         'Content-Type':'application/json'
       },
-      body:JSON.stringify({model:CMODEL,max_tokens:1500,messages:[{role:'user',content:prompt}]})
+      body:JSON.stringify({model:CMODEL,max_tokens:1200,messages:[{role:'user',content:prompt}]})
     });
     const rawBody=await resp.text();
     if(!resp.ok){
@@ -1486,9 +1486,7 @@ ${sectorSnap}
 ${singleTech}
 
 ---
-重要規則：只輸出 JSON，不要任何說明文字、不要 markdown 符號、不要 \`\`\` 包裹。直接從 { 開始到 } 結束。所有數字欄位必須是數字（不要字串），若無資料則填 0。
-
-{"overview":"2句話整體評估","marketContext":"市場環境簡述","holdings":[{"sym":"代號","action":"HOLD","urgency":"MED","currentPrice":0,"exitTarget":0,"addTarget":0,"stopLoss":0,"rr":"1:3","reduceQty":"","reason":"理由","keyRisk":"風險","catalyst":"催化劑"}],"cashAdvice":"現金配置建議","topPick":"最值得加碼標的+理由","topExit":"最應了結標的+理由","riskAlert":"風險警示","weeklyPlan":"1. 第一件事 2. 第二件事 3. 第三件事"}`;
+只輸出JSON，不加任何說明。格式：{"overview":"","marketContext":"","holdings":[{"sym":"","action":"HOLD","urgency":"MED","currentPrice":0,"exitTarget":0,"addTarget":0,"stopLoss":0,"rr":"","reduceQty":"","reason":"","keyRisk":"","catalyst":""}],"cashAdvice":"","topPick":"","topExit":"","riskAlert":"","weeklyPlan":""}`;
 
   try{
     const resp=await fetch('/api/claude',{
@@ -1496,7 +1494,7 @@ ${singleTech}
       headers:{
         'Content-Type':'application/json'
       },
-      body:JSON.stringify({model:CMODEL,max_tokens:2500,messages:[{role:'user',content:prompt}]})
+      body:JSON.stringify({model:CMODEL,max_tokens:1200,messages:[{role:'user',content:prompt}]})
     });
     // 先取得原始文字，方便 debug
     const rawBody=await resp.text();
